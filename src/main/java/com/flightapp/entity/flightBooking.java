@@ -43,6 +43,8 @@ public class flightBooking {
 	private String meal;
 	@Column
 	private String PRN;
+	@Column
+	private long price;
 	
 	
 	@OneToOne(cascade=CascadeType.ALL)
