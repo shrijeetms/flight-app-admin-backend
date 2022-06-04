@@ -14,12 +14,9 @@ import javax.persistence.Id;
 import lombok.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-
 public class flightBooking {
 	
-
+	public flightBooking() {};
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +46,7 @@ public class flightBooking {
 	@Column
 	private String meal;
 	@Column
-	private long pnr;
+	private String pnr;
 	@Column
 	private double price;
 	
@@ -116,7 +113,7 @@ public class flightBooking {
 	
 
 	public flightBooking(int userId, String firstName, String lastName, long phoneNo, String email, int flightId,
-			Date arrivalTime, Date departureTime, Date date, String bookingStatus, String meal, long pnr,
+			Date arrivalTime, Date departureTime, Date date, String bookingStatus, String meal, String pnr,
 			double price) {
 		super();
 		this.userId = userId;
@@ -194,12 +191,12 @@ public class flightBooking {
 	}
 
 
-	public long getPNR() {
+	public String getPNR() {
 		return pnr;
 	}
 
 
-	public void setPNR(long pnr) {
+	public void setPNR(String pnr) {
 		this.pnr = pnr;
 	}
 
@@ -212,12 +209,6 @@ public class flightBooking {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-
-	
-
-
-	
 	
 	/*@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="passengerId", referencedColumnName="userId")

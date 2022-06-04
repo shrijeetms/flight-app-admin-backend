@@ -1,7 +1,10 @@
 package com.flightapp.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,12 @@ public class flightBookingService {
 	public void bookFlight(long flightId, flightBooking flightBooking, String status) {
 		flightBooking.setFlightId(flightId);
 		flightBooking.setBookingStatus(status);
+		
+		
+		flightBooking.setPNR(getPNR());
+		System.out.print(getPNR());
 		userRepo.save(flightBooking);
+		
 	}
 
 	public void cancleFlight(int userId, flightBooking flightBooking, String status) {
@@ -37,5 +45,15 @@ public class flightBookingService {
 		return userRepo.findByPnr(pnr);
 	}
 	
-	
+	public String getPNR(){
+		Random random = new Random();
+		Date date = new Date();
+		Calendar calender = Calendar.getInstance();
+		calender.setTime(date);
+		Integer Yr = calender.get(Calendar.YEAR);
+		Integer Mon = calender.get(Calendar.MONTH);
+		Integer Dt = calender.get(Calendar.DATE);
+		String PNR = "PNR"+""+Yr+""+Mon+""+Dt+""+ random.nextInt(10000);
+		return PNR;
+	}
 }
