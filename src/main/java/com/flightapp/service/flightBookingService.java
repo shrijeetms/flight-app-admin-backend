@@ -23,10 +23,7 @@ public class flightBookingService {
 	public void bookFlight(long flightId, flightBooking flightBooking, String status) {
 		flightBooking.setFlightId(flightId);
 		flightBooking.setBookingStatus(status);
-		
-		
-		flightBooking.setPNR(getPNR());
-		System.out.print(getPNR());
+		flightBooking.setPnr(getPNR());
 		userRepo.save(flightBooking);
 		
 	}
