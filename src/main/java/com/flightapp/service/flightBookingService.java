@@ -9,6 +9,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.flight.exception.UserNotFoundException;
 import com.flightapp.entity.flightBooking;
 import com.flightapp.repository.UsersRepo;
 
@@ -24,23 +25,36 @@ public class flightBookingService {
 		flightBooking.setFlightId(flightId);
 		flightBooking.setBookingStatus(status);
 		flightBooking.setPnr(getPNR());
+		try {
 		userRepo.save(flightBooking);
-		return flightBooking.getPnr();
+		return flightBooking.getPnr();}
+		catch (Exception e) {throw new UserNotFoundException();}
 		
 	}
 
 	public void cancleFlight(int userId, flightBooking flightBooking, String status) {
 		flightBooking.setFlightId(userId);
 		flightBooking.setBookingStatus(status);
-		userRepo.save(flightBooking);
+		try {
+			userRepo.save(flightBooking);}
+		catch (Exception e) {throw new UserNotFoundException();}
 	}
 
 	public List<flightBooking> getFlightHistory(String email) {
-		return userRepo.findAllByEmail(email);
+		if(userRepo.findAllByEmail(email).isEmpty()) {
+			throw new UserNotFoundException();
+		}
+		else {
+		return userRepo.findAllByEmail(email);}
 	}
 
 	public List<flightBooking> getTicket(long pnr) {
-		return userRepo.findByPnr(pnr);
+		if(userRepo.findByPnr(pnr).isEmpty()) {
+			throw new UserNotFoundException();
+		}
+		else {
+		return userRepo.findByPnr(pnr);}
+		
 	}
 	
 	public String getPNR(){
