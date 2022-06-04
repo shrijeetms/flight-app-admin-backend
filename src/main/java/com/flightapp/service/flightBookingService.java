@@ -20,11 +20,12 @@ public class flightBookingService {
 	@Autowired
 	UsersRepo userRepo;
 	
-	public void bookFlight(long flightId, flightBooking flightBooking, String status) {
+	public String bookFlight(long flightId, flightBooking flightBooking, String status) {
 		flightBooking.setFlightId(flightId);
 		flightBooking.setBookingStatus(status);
 		flightBooking.setPnr(getPNR());
 		userRepo.save(flightBooking);
+		return flightBooking.getPnr();
 		
 	}
 

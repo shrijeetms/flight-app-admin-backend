@@ -33,8 +33,8 @@ public class UserController {
 	
 	@PostMapping("/flightBooking/{flightId}/{flag}")
 	public ResponseEntity<Object> bookFlight(@PathVariable long flightId,@RequestBody flightBooking flightBooking,@PathVariable String flag) {
-		flightBookingService.bookFlight(flightId,flightBooking,flag);
-		return new ResponseEntity<>("Ticket Booked", HttpStatus.CREATED);
+		String pnr = flightBookingService.bookFlight(flightId,flightBooking,flag);
+		return new ResponseEntity<>(pnr, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/flightCancle/{userId}/{flag}")
